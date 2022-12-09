@@ -14,13 +14,11 @@ export default async () => {
     catRidingUnicornBytes,
     cmykBytes,
     normalPdfBase64,
-    existingPdfBytes,
   ] = await Promise.all([
     fetchAsset('pdfs/with_update_sections.pdf'),
     fetchAsset('images/cat_riding_unicorn_resized.jpg'),
     fetchAsset('images/cmyk_colorspace.jpg'),
     fetchAsset('pdfs/normal.pdf'),
-    fetchAsset('pdfs/with_annots.pdf'),
   ]);
 
   const pdfDoc = await PDFDocument.load(inputPdfBytes, {
@@ -43,19 +41,7 @@ export default async () => {
 
   const page0 = pdfDoc.insertPage(0, [305, 250]);
   const page1 = pdfDoc.getPage(1);
-
-  const docWithAnnots = await PDFDocument.load(existingPdfBytes);
-  const [page2] = await pdfDoc.copyPages(docWithAnnots, [0]);
-  page2.scaleContent(0.5, 0.5);
-  pdfDoc.addPage(page2);
-  const [page3] = await pdfDoc.copyPages(docWithAnnots, [0]);
-  page3.scaleAnnotations(0.5, 0.5);
-  pdfDoc.addPage(page3);
-  const [page4] = await pdfDoc.copyPages(docWithAnnots, [0]);
-  page4.scale(0.5, 0.5);
-  pdfDoc.addPage(page4);
-
-  const page5 = pdfDoc.addPage([305, 250]);
+  const page2 = pdfDoc.addPage([305, 250]);
 
   const hotPink = rgb(1, 0, 1);
   const red = rgb(1, 0, 0);
@@ -94,25 +80,25 @@ export default async () => {
     ySkew: degrees(15),
   });
 
-  page5.setFontSize(24);
-  page5.drawText('This is the last page!', {
+  page2.setFontSize(24);
+  page2.drawText('This is the last page!', {
     x: 30,
     y: 215,
     font: helveticaFont,
     color: hotPink,
   });
-  page5.drawLine({
+  page2.drawLine({
     start: { x: 30, y: 205 },
     end: { x: 30 + lastPageTextWidth, y: 205 },
     color: hotPink,
     thickness: 5,
   });
-  page5.drawImage(cmykImage, {
+  page2.drawImage(cmykImage, {
     ...cmykDims,
     x: 30,
     y: 30,
   });
-  page5.drawLine({
+  page2.drawLine({
     start: { x: 30, y: 240 },
     end: { x: 30 + lastPageTextWidth, y: 240 },
     color: hotPink,
