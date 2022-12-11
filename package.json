@@ -1,6 +1,6 @@
 {
   "name": "pdf-lib-plus-encrypt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create and modify and encrypt PDF files with JavaScript",
   "main": "rollup.config.js",
   "files": [
