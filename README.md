@@ -1,3 +1,9 @@
+<div align="center">
+  <strong>This is a fork of <a href="https://github.com/Hopding/pdf-lib">pdf-lib</a> created by
+  <a href="https://github.com/Hopding">Andrew Dillon</a> along with the PDF encryption capabilities from 
+  <a href="https://github.com/PhakornKiong">Phakorn Kiong</a> merged in.</strong>
+</div>
+
 <a href="https://pdf-lib.js.org">
 <h1 align="center">
 <img alt="pdf-lib" height="300" src="https://raw.githubusercontent.com/Hopding/pdf-lib-docs/master/assets/logo-full.svg?sanitize=true">

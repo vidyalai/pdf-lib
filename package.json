@@ -1,9 +1,11 @@
 {
-  "name": "pdf-lib",
+  "name": "pdf-lib-plus-encrypt",
   "version": "1.16.0",
-  "description": "Create and modify PDF files with JavaScript",
-  "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
+  "description": "Create and modify and encrypt PDF files with JavaScript",
+  "author": "Brennan McQuerry <brennan.mcquerry@gmail.com>",
   "contributors": [
+    "Hopding (https://github.com/Hopding)"
+    "Andrew Dillon <andrew.dillon.j@gmail.com>",
     "jerp (https://github.com/jerp)",
     "Greg Bacchus (https://github.com/gregbacchus)",
     "Mickael Lecoq (https://github.com/mlecoq)",
@@ -126,9 +128,9 @@
   "license": "MIT",
   "private": false,
   "homepage": "https://pdf-lib.js.org",
-  "repository": "git+https://github.com/Hopding/pdf-lib.git",
+  "repository": "git+https://github.com/brennanmcquerry/pdf-lib-plus-encrypt.git",
   "bugs": {
-    "url": "https://github.com/Hopding/pdf-lib/issues"
+    "url": "https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues"
   },
   "keywords": [
     "pdf-lib",
