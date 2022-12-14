@@ -52,7 +52,7 @@ export default async (assets: Assets) => {
 
   console.log();
   console.log(
-    'Since pdf-lib only copies the minimum necessary resources from a donor PDF needed to show a copied page, the size of the PDF we create from copied pages should be smaller than the size of all the donor PDFs added together:',
+    'Since pdf-lib-plus-encrypt only copies the minimum necessary resources from a donor PDF needed to show a copied page, the size of the PDF we create from copied pages should be smaller than the size of all the donor PDFs added together:',
   );
   console.log();
   console.log(

@@ -61,7 +61,7 @@ export default async (assets: Assets) => {
   const lastPageText = 'This is the last page!';
   const lastPageTextWidth = helveticaFont.widthOfTextAtSize(lastPageText, 24);
 
-  const page1Text = 'pdf-lib is awesome!';
+  const page1Text = 'pdf-lib-plus-encrypt is awesome!';
   const page1TextWidth = helveticaFont.widthOfTextAtSize(page1Text, 70);
   page1.setFontSize(70);
   page1.drawText(page1Text, {

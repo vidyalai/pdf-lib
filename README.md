@@ -1,12 +1,12 @@
 <div align="center">
-  <strong>This is a fork of <a href="https://github.com/Hopding/pdf-lib">pdf-lib</a> created by
+  <strong>This is a fork of <a href="https://github.com/brennanmcquerry/pdf-lib-plus-encrypt">pdf-lib</a> created by
   <a href="https://github.com/Hopding">Andrew Dillon</a> along with the PDF encryption capabilities from 
   <a href="https://github.com/PhakornKiong">Phakorn Kiong</a> merged in.</strong>
 </div>
 
 <a href="https://pdf-lib.js.org">
 <h1 align="center">
-<img alt="pdf-lib" height="300" src="https://raw.githubusercontent.com/Hopding/pdf-lib-docs/master/assets/logo-full.svg?sanitize=true">
+<img alt="pdf-lib" height="300" src="https://raw.githubusercontent.com/brennanmcquerry/pdf-lib-plus-encrypt-docs/master/assets/logo-full.svg?sanitize=true">
 </h1>
 </a>
 
@@ -28,9 +28,9 @@
     />
   </a>
   <!-- Build Status -->
-  <a href="https://circleci.com/gh/Hopding/pdf-lib">
+  <a href="https://circleci.com/gh/brennanmcquerry/pdf-lib-plus-encrypt">
     <img
-      src="https://img.shields.io/circleci/project/github/Hopding/pdf-lib/master.svg?style=flat-square&label=CircleCI"
+      src="https://img.shields.io/circleci/project/github/brennanmcquerry/pdf-lib-plus-encrypt/master.svg?style=flat-square&label=CircleCI"
       alt="CircleCI Build Status"
     />
   </a>
@@ -136,7 +136,7 @@ _This example produces [this PDF](assets/pdfs/examples/create_document.pdf)._
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib-plus-encrypt'
 
 // Create a new PDFDocument
 const pdfDoc = await PDFDocument.create()
@@ -177,7 +177,7 @@ _This example produces [this PDF](assets/pdfs/examples/modify_document.pdf)_ (wh
 
 <!-- prettier-ignore -->
 ```js
-import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib-plus-encrypt';
 
 // This should be a Uint8Array or ArrayBuffer
 // This data can be obtained in a number of different ways
@@ -228,7 +228,7 @@ _This example produces [this PDF](assets/pdfs/examples/create_form.pdf)._
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // Create a new PDFDocument
 const pdfDoc = await PDFDocument.create()
@@ -326,7 +326,7 @@ _This example produces [this PDF](assets/pdfs/examples/fill_form.pdf)_ (when [th
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // These should be Uint8Arrays or ArrayBuffers
 // This data can be obtained in a number of different ways
@@ -435,7 +435,7 @@ _This example produces [this PDF](assets/pdfs/examples/flatten_form.pdf)_ (when 
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // This should be a Uint8Array or ArrayBuffer
 // This data can be obtained in a number of different ways
@@ -483,7 +483,7 @@ _This example produces [this PDF](assets/pdfs/examples/copy_pages.pdf)_ (when [t
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // Create a new PDFDocument
 const pdfDoc = await PDFDocument.create()
@@ -528,7 +528,7 @@ _This example produces [this PDF](assets/pdfs/examples/embed_png_and_jpeg_images
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // These should be Uint8Arrays or ArrayBuffers
 // This data can be obtained in a number of different ways
@@ -586,7 +586,7 @@ _This example produces [this PDF](assets/pdfs/examples/embed_pdf_pages.pdf)_ (wh
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // These should be Uint8Arrays or ArrayBuffers
 // This data can be obtained in a number of different ways
@@ -658,7 +658,7 @@ _This example produces [this PDF](assets/pdfs/examples/embed_font_and_measure_te
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument, rgb } from 'pdf-lib'
+import { PDFDocument, rgb } from 'pdf-lib-plus-encrypt'
 import fontkit from '@pdf-lib/fontkit'
 
 // This should be a Uint8Array or ArrayBuffer
@@ -721,7 +721,7 @@ _This example produces [this PDF](assets/pdfs/examples/add_attachments.pdf)_ (wh
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // These should be Uint8Arrays or ArrayBuffers
 // This data can be obtained in a number of different ways
@@ -770,7 +770,7 @@ _This example produces [this PDF](assets/pdfs/examples/set_document_metadata.pdf
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument, StandardFonts } from 'pdf-lib'
+import { PDFDocument, StandardFonts } from 'pdf-lib-plus-encrypt'
 
 // Create a new PDFDocument
 const pdfDoc = await PDFDocument.create()
@@ -791,7 +791,7 @@ pdfDoc.setAuthor('Humpty Dumpty')
 pdfDoc.setSubject('📘 An Epic Tale of Woe 📖')
 pdfDoc.setKeywords(['eggs', 'wall', 'fall', 'king', 'horses', 'men'])
 pdfDoc.setProducer('PDF App 9000 🤖')
-pdfDoc.setCreator('pdf-lib (https://github.com/Hopding/pdf-lib)')
+pdfDoc.setCreator('pdf-lib-plus-encrypt (https://github.com/brennanmcquerry/pdf-lib-plus-encrypt)')
 pdfDoc.setCreationDate(new Date('2018-06-24T01:58:37.228Z'))
 pdfDoc.setModificationDate(new Date('2019-12-21T07:00:11.000Z'))
 
@@ -810,7 +810,7 @@ const pdfBytes = await pdfDoc.save()
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // This should be a Uint8Array or ArrayBuffer
 // This data can be obtained in a number of different ways
@@ -859,7 +859,7 @@ import {
   PrintScaling,
   Duplex,
   PDFName,
-} from 'pdf-lib'
+} from 'pdf-lib-plus-encrypt'
 
 // Create a new PDFDocument
 const pdfDoc = await PDFDocument.create()
@@ -918,7 +918,7 @@ const pdfBytes = await pdfDoc.save()
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 // This should be a Uint8Array or ArrayBuffer
 // This data can be obtained in a number of different ways
@@ -972,7 +972,7 @@ _This example produces [this PDF](assets/pdfs/examples/draw_svg_paths.pdf)_.
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument, rgb } from 'pdf-lib'
+import { PDFDocument, rgb } from 'pdf-lib-plus-encrypt'
 
 // SVG path for a wavy line
 const svgPath =
@@ -1158,7 +1158,7 @@ When using a UMD build, you will have access to a global `window.PDFLib` variabl
 
 ```javascript
 // NPM module
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib-plus-encrypt';
 
 // UMD module
 var PDFDocument = PDFLib.PDFDocument;
@@ -1185,7 +1185,7 @@ To register the `fontkit` instance:
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 import fontkit from '@pdf-lib/fontkit'
 
 const pdfDoc = await PDFDocument.create()
@@ -1219,7 +1219,7 @@ pdfDoc.registerFontkit(fontkit)
 API documentation is available on the project site at https://pdf-lib.js.org/docs/api/.
 
 The repo for the project site (and generated documentation files) is
-located here: https://github.com/Hopding/pdf-lib-docs.
+located here: https://github.com/brennanmcquerry/pdf-lib-plus-encrypt-docs.
 
 ## Fonts and Unicode
 
@@ -1230,7 +1230,7 @@ When working with PDFs, you will frequently come across the terms "character enc
 - **There are 14 standard fonts** defined in the PDF specification. They are as follows: _Times Roman_ (normal, bold, and italic), _Helvetica_ (normal, bold, and italic), _Courier_ (normal, bold, and italic), _ZapfDingbats_ (normal), and _Symbol_ (normal). These 14 fonts are guaranteed to be available in PDF readers. As such, you do not need to embed any font data if you wish to use one of these fonts. You can use a standard font like so:
   <!-- prettier-ignore -->
   ```js
-  import { PDFDocument, StandardFonts } from 'pdf-lib'
+  import { PDFDocument, StandardFonts } from 'pdf-lib-plus-encrypt'
   const pdfDoc = await PDFDocument.create()
   const courierFont = await pdfDoc.embedFont(StandardFonts.Courier)
   const page = pdfDoc.addPage()
@@ -1242,7 +1242,7 @@ When working with PDFs, you will frequently come across the terms "character enc
 - **You can use characters outside the Latin alphabet** by embedding your own fonts. Embedding your own font requires to you load the font data (from a file or via a network request, for example) and pass it to the `embedFont` method. When you embed your own font, you can use any Unicode characters that it supports. This capability frees you from the limitations imposed by the standard fonts. Most PDF files use embedded fonts. You can embed and use a custom font like so ([see also](#embed-font-and-measure-text)):
   <!-- prettier-ignore -->
   ```js
-  import { PDFDocument } from 'pdf-lib'
+  import { PDFDocument } from 'pdf-lib-plus-encrypt'
   import fontkit from '@pdf-lib/fontkit'
 
   const url = 'https://pdf-lib.js.org/assets/ubuntu/Ubuntu-R.ttf'
@@ -1274,7 +1274,7 @@ Embedding a font in a PDF document will typically increase the file's size. You 
 const font = await pdfDoc.embedFont(fontBytes, { subset: true });
 ```
 
-Note that subsetting does not work for all fonts. See https://github.com/Hopding/pdf-lib/issues/207#issuecomment-537210471 for additional details.
+Note that subsetting does not work for all fonts. See https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/207#issuecomment-537210471 for additional details.
 
 ## Creating and Filling Forms
 
@@ -1294,7 +1294,7 @@ See the [form creation](#create-form) and [form filling](#fill-form) usage examp
 You can use an embedded font when filling form fields as follows:
 
 ```js
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib-plus-encrypt';
 import fontkit from '@pdf-lib/fontkit';
 
 // Fetch the PDF with form fields
@@ -1390,34 +1390,34 @@ Below are some of the most commonly used methods for reading and filling the afo
 ## Limitations
 
 - `pdf-lib` **can** extract the content of text fields (see [`PDFTextField.getText`](https://pdf-lib.js.org/docs/api/classes/pdftextfield#gettext)), but it **cannot** extract plain text on a page outside of a form field. This is a difficult feature to implement, but it is within the scope of this library and may be added to `pdf-lib` in the future. See
-  [#93](https://github.com/Hopding/pdf-lib/issues/93),
-  [#137](https://github.com/Hopding/pdf-lib/issues/137),
-  [#177](https://github.com/Hopding/pdf-lib/issues/177),
-  [#329](https://github.com/Hopding/pdf-lib/issues/329), and
-  [#380](https://github.com/Hopding/pdf-lib/issues/380).
+  [#93](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/93),
+  [#137](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/137),
+  [#177](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/177),
+  [#329](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/329), and
+  [#380](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/380).
 - `pdf-lib` **can** remove and edit the content of text fields (see [`PDFTextField.setText`](https://pdf-lib.js.org/docs/api/classes/pdftextfield#settext)), but it does **not** provide APIs for removing or editing text on a page outside of a form field. This is also a difficult feature to implement, but is within the scope of `pdf-lib` and may be added in the future. See
-  [#93](https://github.com/Hopding/pdf-lib/issues/93),
-  [#137](https://github.com/Hopding/pdf-lib/issues/137),
-  [#177](https://github.com/Hopding/pdf-lib/issues/177),
-  [#329](https://github.com/Hopding/pdf-lib/issues/329), and
-  [#380](https://github.com/Hopding/pdf-lib/issues/380).
+  [#93](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/93),
+  [#137](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/137),
+  [#177](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/177),
+  [#329](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/329), and
+  [#380](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/380).
 - `pdf-lib` does **not** support the use of HTML or CSS when adding content to a PDF. Similarly, `pdf-lib` **cannot** embed HTML/CSS content into PDFs. As convenient as such a feature might be, it would be extremely difficult to implement and is far beyond the scope of this library. If this capability is something you need, consider using [Puppeteer](https://github.com/puppeteer/puppeteer).
 
 ## Help and Discussion
 
-[Discussions](https://github.com/Hopding/pdf-lib/discussions) is the best place to chat with us, ask questions, and learn more about pdf-lib!
+[Discussions](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/discussions) is the best place to chat with us, ask questions, and learn more about pdf-lib!
 
 See also [MAINTAINERSHIP.md#communication](docs/MAINTAINERSHIP.md#communication) and [MAINTAINERSHIP.md#discord](docs/MAINTAINERSHIP.md#discord).
 
 ## Encryption Handling
 
-**`pdf-lib` does not currently support encrypted documents.** You should not use `pdf-lib` with encrypted documents. However, this is a feature that could be added to `pdf-lib`. Please [create an issue](https://github.com/Hopding/pdf-lib/issues/new) if you would find this feature helpful!
+**`pdf-lib` does not currently support encrypted documents.** You should not use `pdf-lib` with encrypted documents. However, this is a feature that could be added to `pdf-lib`. Please [create an issue](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/issues/new) if you would find this feature helpful!
 
 When an encrypted document is passed to `PDFDocument.load(...)`, an error will be thrown:
 
 <!-- prettier-ignore -->
 ```js
-import { PDFDocument, EncryptedPDFError } from 'pdf-lib'
+import { PDFDocument, EncryptedPDFError } from 'pdf-lib-plus-encrypt'
 
 const encryptedPdfBytes = ...
 
@@ -1428,7 +1428,7 @@ const pdfDoc = PDFDocument.load(encryptedPdfBytes)
 This default behavior is usually what you want. It allows you to easily detect if a given document is encrypted, and it prevents you from trying to modify it. However, if you really want to load the document, you can use the `{ ignoreEncryption: true }` option:
 
 ```js
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument } from 'pdf-lib-plus-encrypt'
 
 const encryptedPdfBytes = ...
 
@@ -1454,7 +1454,7 @@ Check out [MAINTAINERSHIP.md](docs/MAINTAINERSHIP.md) for details on how this re
 - [Möbius Printing helper](https://shreevatsa.net/mobius-print/) - a tool created by @shreevatsa
 - [Extract PDF pages](https://shreevatsa.net/pdf-pages/) - a tool created by @shreevatsa
 - [Travel certificate generator](https://github.com/LAB-MI/deplacement-covid-19) - a tool that creates travel certificates for French citizens under quarantine due to COVID-19
-- [How to use pdf-lib in AWS Lambdas](https://medium.com/swlh/create-pdf-using-pdf-lib-on-serverless-aws-lambda-e9506246dc88) - a tutorial written by Crespo Wang
+- [How to use pdf-lib-plus-encrypt in AWS Lambdas](https://medium.com/swlh/create-pdf-using-pdf-lib-on-serverless-aws-lambda-e9506246dc88) - a tutorial written by Crespo Wang
 - [Working With PDFs in Node.js Using pdf-lib](http://thecodebarbarian.com/working-with-pdfs-in-node-js.html) - a tutorial by Valeri Karpov
 - [Electron app for resizing PDFs](https://github.com/vegarringdal/simple-pdf-resizer) - a tool created by @vegarringdal
 - [PDF Shelter](https://pdfshelter.com) - online PDF manipulation tools by Lucas Morais
@@ -1479,7 +1479,7 @@ This repo used to contain a file called `pdf_specification.pdf` in the root dire
 We removed the file and rewrote the repo's history using [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) as outlined [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository). For full transparency, here are the exact commands we ran:
 
 ```
-$ git clone git@github.com:Hopding/pdf-lib.git
+$ git clone git@github.com:brennanmcquerry/pdf-lib-plus-encrypt.git
 $ cd pdf-lib
 $ rm pdf_specification.pdf
 $ git commit -am 'Remove pdf_specification.pdf'

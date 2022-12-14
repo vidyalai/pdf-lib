@@ -107,7 +107,7 @@ export default async (assets: Assets) => {
 
   // These will all be undefined since the source document's metadata is
   // stored in a metadata stream, not the more widely used info dictionary.
-  // pdf-lib does not currently support reading metadata streams.
+  // pdf-lib-plus-encrypt does not currently support reading metadata streams.
   console.log('Title:', pdfDoc.getTitle());
   console.log('Author:', pdfDoc.getAuthor());
   console.log('Subject:', pdfDoc.getSubject());

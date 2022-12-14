@@ -1,4 +1,4 @@
-import { PageSizes, PDFDocument, rgb } from 'pdf-lib';
+import { PageSizes, PDFDocument, rgb } from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 

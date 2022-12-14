@@ -7,7 +7,7 @@ import {
   degrees,
   rgb,
   values,
-} from 'pdf-lib';
+} from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset } from './assets';
 
@@ -149,7 +149,7 @@ const thirdPage = async (pdfDoc, assets) => {
     blendMode: BlendMode.Normal,
   });
 
-  page.drawText(`pdf-lib Blend Mode Test`, {
+  page.drawText(`pdf-lib-plus-encrypt Blend Mode Test`, {
     size: 24,
     x: 45,
     y: 735,

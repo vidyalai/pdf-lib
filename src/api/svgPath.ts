@@ -1,7 +1,7 @@
 // Originated from pdfkit Copyright (c) 2014 Devon Govett
 // https://github.com/foliojs/pdfkit/blob/1e62e6ffe24b378eb890df507a47610f4c4a7b24/lib/path.js
 // MIT LICENSE
-// Updated for pdf-lib & TypeScript by Jeremy Messenger
+// Updated for pdf-lib-plus-encrypt & TypeScript by Jeremy Messenger
 
 import {
   appendBezierCurve,

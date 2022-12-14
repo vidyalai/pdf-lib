@@ -1,4 +1,4 @@
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 
@@ -16,7 +16,7 @@ export default async () => {
   const [firstPage] = pages;
 
   const { width, height } = firstPage.getSize();
-  const text = 'pdf-lib is awesome!';
+  const text = 'pdf-lib-plus-encrypt is awesome!';
   const textWidth = helveticaFont.widthOfTextAtSize(text, 75);
   firstPage.moveTo(width / 2 - textWidth / 2, height - 100);
   firstPage.setFont(helveticaFont);

@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "postinstall": "rimraf ./node_modules/pdf-lib/apps",
+    "postinstall": "rimraf ./node_modules/pdf-lib-plus-encrypt/apps",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^0.0.4",
-    "pdf-lib": "./../..",
+    "pdf-lib-plus-encrypt": "./../..",
     "react": "16.8.3",
     "react-native": "0.59.10",
     "react-native-pdf": "^6.1.1",

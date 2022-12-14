@@ -29,7 +29,7 @@
       </button>
     </div>
     <div id="animation-target"></div>
-    <div id="result-stats" style="max-width: 1000px; text-align: center;"></div>
+    <div id="result-stats" style="max-width: 1000px; text-align: center"></div>
     <iframe id="iframe"></iframe>
   </body>
 
@@ -114,7 +114,7 @@
       const ratio = (sizeOfCreatedPdf / sizeOfAllDonorPdfs).toFixed(2);
       document.getElementById('result-stats').innerHTML = `
         <p>
-          Since pdf-lib only copies the minimum necessary resources from a 
+          Since pdf-lib-plus-encrypt only copies the minimum necessary resources from a 
           donor PDF needed to show a copied page, the size of the PDF we create 
           from copied pages should be smaller than the size of all the donor 
           PDFs added together:

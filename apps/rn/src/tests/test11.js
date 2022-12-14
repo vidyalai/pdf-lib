@@ -1,5 +1,10 @@
 import fontkit from '@pdf-lib/fontkit';
-import { PDFDocument, StandardFonts, last, charAtIndex } from 'pdf-lib';
+import {
+  PDFDocument,
+  StandardFonts,
+  last,
+  charAtIndex,
+} from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 const breakTextIntoLines = (text, size, font, maxWidth) => {

@@ -4,22 +4,18 @@ import {
   rgb,
   StandardFonts,
   LineCapStyle,
-} from 'pdf-lib';
+} from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 
 export default async () => {
-  const [
-    inputPdfBytes,
-    catRidingUnicornBytes,
-    cmykBytes,
-    normalPdfBase64,
-  ] = await Promise.all([
-    fetchAsset('pdfs/with_update_sections.pdf'),
-    fetchAsset('images/cat_riding_unicorn_resized.jpg'),
-    fetchAsset('images/cmyk_colorspace.jpg'),
-    fetchAsset('pdfs/normal.pdf'),
-  ]);
+  const [inputPdfBytes, catRidingUnicornBytes, cmykBytes, normalPdfBase64] =
+    await Promise.all([
+      fetchAsset('pdfs/with_update_sections.pdf'),
+      fetchAsset('images/cat_riding_unicorn_resized.jpg'),
+      fetchAsset('images/cmyk_colorspace.jpg'),
+      fetchAsset('pdfs/normal.pdf'),
+    ]);
 
   const pdfDoc = await PDFDocument.load(inputPdfBytes, {
     updateMetadata: false,
@@ -68,7 +64,7 @@ export default async () => {
   const lastPageText = 'This is the last page!';
   const lastPageTextWidth = helveticaFont.widthOfTextAtSize(lastPageText, 24);
 
-  const page1Text = 'pdf-lib is awesome!';
+  const page1Text = 'pdf-lib-plus-encrypt is awesome!';
   const page1TextWidth = helveticaFont.widthOfTextAtSize(page1Text, 70);
   page1.setFontSize(70);
   page1.drawText(page1Text, {

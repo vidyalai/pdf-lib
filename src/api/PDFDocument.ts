@@ -85,7 +85,7 @@ export default class PDFDocument {
    *
    * For example:
    * ```js
-   * import { PDFDocument } from 'pdf-lib'
+   * import { PDFDocument } from 'pdf-lib-plus-encrypt'
    *
    * // pdf=string
    * const base64 =
@@ -249,14 +249,14 @@ export default class PDFDocument {
 
   /**
    * Register a fontkit instance. This must be done before custom fonts can
-   * be embedded. See [here](https://github.com/Hopding/pdf-lib/tree/master#fontkit-installation)
+   * be embedded. See [here](https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/tree/master#fontkit-installation)
    * for instructions on how to install and register a fontkit instance.
    *
    * > You do **not** need to call this method to embed standard fonts.
    *
    * For example:
    * ```js
-   * import { PDFDocument } from 'pdf-lib'
+   * import { PDFDocument } from 'pdf-lib-plus-encrypt'
    * import fontkit from '@pdf-lib/fontkit'
    *
    * const pdfDoc = await PDFDocument.create()
@@ -287,7 +287,7 @@ export default class PDFDocument {
     const form = this.formCache.access();
     if (form.hasXFA()) {
       console.warn(
-        'Removing XFA form data as pdf-lib does not support reading or writing XFA',
+        'Removing XFA form data as pdf-lib-plus-encrypt does not support reading or writing XFA',
       );
       form.deleteXFA();
     }
@@ -658,7 +658,7 @@ export default class PDFDocument {
    * const newPage = pdfDoc.addPage()
    *
    * // page=[number, number]
-   * import { PageSizes } from 'pdf-lib'
+   * import { PageSizes } from 'pdf-lib-plus-encrypt'
    * const newPage1 = pdfDoc.addPage(PageSizes.A7)
    * const newPage2 = pdfDoc.addPage(PageSizes.Letter)
    * const newPage3 = pdfDoc.addPage([500, 750])
@@ -694,7 +694,7 @@ export default class PDFDocument {
    * const newPage = pdfDoc.insertPage(2)
    *
    * // page=[number, number]
-   * import { PageSizes } from 'pdf-lib'
+   * import { PageSizes } from 'pdf-lib-plus-encrypt'
    * const newPage1 = pdfDoc.insertPage(2, PageSizes.A7)
    * const newPage2 = pdfDoc.insertPage(0, PageSizes.Letter)
    * const newPage3 = pdfDoc.insertPage(198, [500, 750])
@@ -946,7 +946,7 @@ export default class PDFDocument {
    * For example:
    * ```js
    * // font=StandardFonts
-   * import { StandardFonts } from 'pdf-lib'
+   * import { StandardFonts } from 'pdf-lib-plus-encrypt'
    * const font1 = await pdfDoc.embedFont(StandardFonts.Helvetica)
    *
    * // font=string
@@ -1007,7 +1007,7 @@ export default class PDFDocument {
    * Embed a standard font into this document.
    * For example:
    * ```js
-   * import { StandardFonts } from 'pdf-lib'
+   * import { StandardFonts } from 'pdf-lib-plus-encrypt'
    * const helveticaFont = pdfDoc.embedFont(StandardFonts.Helvetica)
    * ```
    * @param font The standard font to be embedded.
@@ -1366,7 +1366,7 @@ export default class PDFDocument {
   }
 
   private updateInfoDict(): void {
-    const pdfLib = `pdf-lib (https://github.com/Hopding/pdf-lib)`;
+    const pdfLib = `pdf-lib-plus-encrypt (https://github.com/brennanmcquerry/pdf-lib-plus-encrypt)`;
     const now = new Date();
 
     const info = this.getInfoDict();

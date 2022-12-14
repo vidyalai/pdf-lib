@@ -1,5 +1,5 @@
 import fontkit from '@pdf-lib/fontkit';
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 

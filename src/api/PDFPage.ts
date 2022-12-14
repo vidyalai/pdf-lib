@@ -121,7 +121,7 @@ export default class PDFPage {
   /**
    * Rotate this page by a multiple of 90 degrees. For example:
    * ```js
-   * import { degrees } from 'pdf-lib'
+   * import { degrees } from 'pdf-lib-plus-encrypt'
    *
    * page.setRotation(degrees(-90))
    * page.setRotation(degrees(0))
@@ -593,7 +593,7 @@ export default class PDFPage {
    * Choose a default font for this page. The default font will be used whenever
    * text is drawn on this page and no font is specified. For example:
    * ```js
-   * import { StandardFonts } from 'pdf-lib'
+   * import { StandardFonts } from 'pdf-lib-plus-encrypt'
    *
    * const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
    * const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
@@ -641,7 +641,7 @@ export default class PDFPage {
    * used whenever text is drawn on this page and no font color is specified.
    * For example:
    * ```js
-   * import { rgb, cmyk, grayscale } from 'pdf-lib'
+   * import { rgb, cmyk, grayscale } from 'pdf-lib-plus-encrypt'
    *
    * page.setFontColor(rgb(0.97, 0.02, 0.97))
    * page.drawText('I will be drawn in pink')
@@ -818,7 +818,7 @@ export default class PDFPage {
    *   rgb,
    *   fill,
    *   popGraphicsState,
-   * } from 'pdf-lib'
+   * } from 'pdf-lib-plus-encrypt'
    *
    * // Draw a green triangle in the lower-left corner of the page
    * page.pushOperators(
@@ -843,7 +843,7 @@ export default class PDFPage {
   /**
    * Draw one or more lines of text on this page. For example:
    * ```js
-   * import { StandardFonts, rgb } from 'pdf-lib'
+   * import { StandardFonts, rgb } from 'pdf-lib-plus-encrypt'
    *
    * const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
    * const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
@@ -938,7 +938,7 @@ export default class PDFPage {
   /**
    * Draw an image on this page. For example:
    * ```js
-   * import { degrees } from 'pdf-lib'
+   * import { degrees } from 'pdf-lib-plus-encrypt'
    *
    * const jpgUrl = 'https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg'
    * const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer())
@@ -999,7 +999,7 @@ export default class PDFPage {
   /**
    * Draw an embedded PDF page on this page. For example:
    * ```js
-   * import { degrees } from 'pdf-lib'
+   * import { degrees } from 'pdf-lib-plus-encrypt'
    *
    * const pdfDoc = await PDFDocument.create()
    * const page = pdfDoc.addPage()
@@ -1088,7 +1088,7 @@ export default class PDFPage {
   /**
    * Draw an SVG path on this page. For example:
    * ```js
-   * import { rgb } from 'pdf-lib'
+   * import { rgb } from 'pdf-lib-plus-encrypt'
    *
    * const svgPath = 'M 0,20 L 100,160 Q 130,200 150,120 C 190,-40 200,200 300,150 L 400,90'
    *
@@ -1184,7 +1184,7 @@ export default class PDFPage {
   /**
    * Draw a line on this page. For example:
    * ```js
-   * import { rgb } from 'pdf-lib'
+   * import { rgb } from 'pdf-lib-plus-encrypt'
    *
    * page.drawLine({
    *   start: { x: 25, y: 75 },
@@ -1242,7 +1242,7 @@ export default class PDFPage {
   /**
    * Draw a rectangle on this page. For example:
    * ```js
-   * import { degrees, grayscale, rgb } from 'pdf-lib'
+   * import { degrees, grayscale, rgb } from 'pdf-lib-plus-encrypt'
    *
    * page.drawRectangle({
    *   x: 25,
@@ -1326,7 +1326,7 @@ export default class PDFPage {
   /**
    * Draw a square on this page. For example:
    * ```js
-   * import { degrees, grayscale, rgb } from 'pdf-lib'
+   * import { degrees, grayscale, rgb } from 'pdf-lib-plus-encrypt'
    *
    * page.drawSquare({
    *   x: 25,
@@ -1351,7 +1351,7 @@ export default class PDFPage {
   /**
    * Draw an ellipse on this page. For example:
    * ```js
-   * import { grayscale, rgb } from 'pdf-lib'
+   * import { grayscale, rgb } from 'pdf-lib-plus-encrypt'
    *
    * page.drawEllipse({
    *   x: 200,
@@ -1429,7 +1429,7 @@ export default class PDFPage {
   /**
    * Draw a circle on this page. For example:
    * ```js
-   * import { grayscale, rgb } from 'pdf-lib'
+   * import { grayscale, rgb } from 'pdf-lib-plus-encrypt'
    *
    * page.drawCircle({
    *   x: 200,

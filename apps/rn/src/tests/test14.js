@@ -1,4 +1,4 @@
-import { PDFDocument, values, PDFTextField } from 'pdf-lib';
+import { PDFDocument, values, PDFTextField } from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 

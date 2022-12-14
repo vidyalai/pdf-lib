@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Basic Options */
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "allowJs": false,
     "checkJs": false,
@@ -39,7 +39,7 @@
     "moduleResolution": "node",
 
     /* Plugins */
-    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }]
+    "plugins": [{ "transform": "@ovos-media/ts-transform-paths" }]
   },
   "include": ["src/**/*"]
 }

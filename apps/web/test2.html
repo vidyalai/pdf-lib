@@ -14,7 +14,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" type="text/css" href="/apps/web/index.css" />
     <title>Test 2</title>
-    <script type="text/javascript" src="/dist/pdf-lib.min.js"></script>
+    <script
+      type="text/javascript"
+      src="/dist/pdf-lib-plus-encrypt.min.js"
+    ></script>
     <script type="text/javascript" src="/apps/web/utils.js"></script>
     <script
       type="text/javascript"
@@ -156,7 +159,7 @@
 
       // These will all be undefined since the source document's metadata is
       // stored in a metadata stream, not the more widely used info dictionary.
-      // pdf-lib does not currently support reading metadata streams.
+      // pdf-lib-plus-encrypt does not currently support reading metadata streams.
       console.log('Title:', pdfDoc.getTitle());
       console.log('Author:', pdfDoc.getAuthor());
       console.log('Subject:', pdfDoc.getSubject());

@@ -1,4 +1,4 @@
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib-plus-encrypt';
 import fontkit from '@pdf-lib/fontkit';
 
 import { fetchAsset } from './assets';
@@ -50,7 +50,7 @@ const loadA = async (assets) => {
     )
     .setText('08087');
 
-  // TODO: Add this back once https://github.com/Hopding/pdf-lib/pull/724 is merged
+  // TODO: Add this back once https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/pull/724 is merged
   // const typeOfReturn = form.getRadioGroup(
   //   'form1[0].Page1[0].BeforeYouBegin[0].Type[0].RadioButtonGroup[0]',
   // );
@@ -158,7 +158,7 @@ const loadD = async (assets) => {
   return pdfDoc;
 };
 
-// Based on https://github.com/Hopding/pdf-lib#create-form
+// Based on https://github.com/brennanmcquerry/pdf-lib-plus-encrypt#create-form
 const loadE = async (_assets) => {
   const pdfDoc = await PDFDocument.create();
 

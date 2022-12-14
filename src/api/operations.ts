@@ -309,7 +309,7 @@ export const drawEllipse = (options: {
     setDashPattern(options.borderDashArray ?? [], options.borderDashPhase ?? 0),
 
     // The `drawEllipsePath` branch is only here for backwards compatibility.
-    // See https://github.com/Hopding/pdf-lib/pull/511#issuecomment-667685655.
+    // See https://github.com/brennanmcquerry/pdf-lib-plus-encrypt/pull/511#issuecomment-667685655.
     ...(options.rotate === undefined
       ? drawEllipsePath({
           x: options.x,

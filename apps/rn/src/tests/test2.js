@@ -1,5 +1,5 @@
 import fontkit from '@pdf-lib/fontkit';
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib-plus-encrypt';
 
 import { fetchAsset, writePdf } from './assets';
 
@@ -7,17 +7,13 @@ import { fetchAsset, writePdf } from './assets';
 // It inserts data for every page (images, rectangles, texts, embedded PDFs).
 // Also, the second page is removed.
 export default async () => {
-  const [
-    ubuntuBytes,
-    smallMarioBytes,
-    inputPdfBytes,
-    largePageCountPdfBytes,
-  ] = await Promise.all([
-    fetchAsset('fonts/ubuntu/Ubuntu-R.ttf'),
-    fetchAsset('images/small_mario_resized.png'),
-    fetchAsset('pdfs/linearized_with_object_streams.pdf'),
-    fetchAsset('pdfs/with_large_page_count.pdf'),
-  ]);
+  const [ubuntuBytes, smallMarioBytes, inputPdfBytes, largePageCountPdfBytes] =
+    await Promise.all([
+      fetchAsset('fonts/ubuntu/Ubuntu-R.ttf'),
+      fetchAsset('images/small_mario_resized.png'),
+      fetchAsset('pdfs/linearized_with_object_streams.pdf'),
+      fetchAsset('pdfs/with_large_page_count.pdf'),
+    ]);
 
   const pdfDoc = await PDFDocument.load(inputPdfBytes, {
     updateMetadata: false,
@@ -106,7 +102,7 @@ export default async () => {
 
   // These will all be undefined since the source document's metadata is
   // stored in a metadata stream, not the more widely used info dictionary.
-  // pdf-lib does not currently support reading metadata streams.
+  // pdf-lib-plus-encrypt does not currently support reading metadata streams.
   console.log('Title:', pdfDoc.getTitle());
   console.log('Author:', pdfDoc.getAuthor());
   console.log('Subject:', pdfDoc.getSubject());
