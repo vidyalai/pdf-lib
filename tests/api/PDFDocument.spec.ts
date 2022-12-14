@@ -516,16 +516,18 @@ describe(`copy() method`, () => {
     srcDoc.setModificationDate(modificationDate);
     pdfDoc = await srcDoc.copy();
   });
-  
+
   it(`Returns a pdf with the same number of pages`, async () => {
     expect(pdfDoc.getPageCount()).toBe(srcDoc.getPageCount());
   });
-  
+
   it(`Can copy author, creationDate, creator, producer, subject, title, defaultWordBreaks`, async () => {
     expect(pdfDoc.getAuthor()).toBe(srcDoc.getAuthor());
     expect(pdfDoc.getCreationDate()).toStrictEqual(srcDoc.getCreationDate());
     expect(pdfDoc.getCreator()).toBe(srcDoc.getCreator());
-    expect(pdfDoc.getModificationDate()).toStrictEqual(srcDoc.getModificationDate());
+    expect(pdfDoc.getModificationDate()).toStrictEqual(
+      srcDoc.getModificationDate(),
+    );
     expect(pdfDoc.getProducer()).toBe(srcDoc.getProducer());
     expect(pdfDoc.getSubject()).toBe(srcDoc.getSubject());
     expect(pdfDoc.getTitle()).toBe(srcDoc.getTitle());
