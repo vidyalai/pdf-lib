@@ -1,6 +1,6 @@
 {
   "name": "pdf-lib-plus-encrypt",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Create and modify and encrypt PDF files with JavaScript",
   "main": "cjs/index.js",
   "module": "es/index.js",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@pdf-lib/standard-fonts": "^1.0.0",
     "@pdf-lib/upng": "^1.0.1",
-    "@types/crypto-js": "^4.0.2",
+    "@types/crypto-js": "^4.1.1",
     "@types/saslprep": "^1.0.1",
     "crypto-js": "^4.1.1",
     "pako": "^1.0.11",
@@ -36,9 +36,9 @@
   },
   "devDependencies": {
     "@pdf-lib/fontkit": "^1.1.0",
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@rollup/plugin-commonjs": "^23.0.4",
+    "@rollup/plugin-json": "^5.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/jest": "^26.0.0",
     "@types/node-fetch": "^2.5.7",
     "@types/pako": "^1.0.1",
