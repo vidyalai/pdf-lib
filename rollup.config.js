@@ -54,6 +54,6 @@ export default {
     format: MODULE_TYPE,
     sourcemap: true,
   },
-  moduleContext: { "node_modules/crypto-js/core.js": "globalThis" },
+  moduleContext: { "src/core/security/cryptojs.ts": "window" },
   plugins: [resolve(), nodePolyfills(), commonjs(), json(), MINIFY === 'true' && terser()],
 };

@@ -3,7 +3,7 @@
     /* Basic Options */
     "target": "es6",
     "module": "ES2015",
-    "allowJs": false,
+    "allowJs": true,
     "checkJs": false,
     "declaration": true,
     "declarationMap": true,
@@ -20,7 +20,7 @@
     "newLine": "LF",
 
     /* Strict Type-Checking Options */
-    "strict": true,
+    "strict": false,
 
     /* Additional Checks */
     "noUnusedLocals": true,
