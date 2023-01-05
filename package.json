@@ -1,6 +1,6 @@
 {
   "name": "pdf-lib-plus-encrypt",
-  "version": "1.0.28",
+  "version": "1.1.0",
   "description": "Create and modify and encrypt PDF files with JavaScript",
   "main": "cjs/index.js",
   "module": "es/index.js",
