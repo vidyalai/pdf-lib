@@ -1,0 +1,46 @@
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib-plus-encrypt@1.1.0/dist/pdf-lib-plus-encrypt.min.js"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  </head>
+
+  <body>
+    <p>Click the button to create a new, encrypted PDF document. password is: "abcd"</p>
+    <button onclick="createPdf()">Create PDF</button>
+    <p class="small">(Your browser will download the resulting file)</p>
+  </body>
+
+  <script>
+    const { PDFDocument, StandardFonts, rgb } = PDFLib;
+
+    async function createPdf() {
+    
+      // Create a new PDFDocument
+      const pdfDoc = await PDFDocument.create();
+      
+      // Add some stuff
+      const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+      const page = pdfDoc.addPage();
+      const { width, height } = page.getSize();
+      const fontSize = 30;
+      page.drawText('I am an encrypted PDF!', {
+        x: 50,
+        y: height - 4 * fontSize,
+        size: fontSize,
+        font: timesRomanFont,
+        color: rgb(0, 0.53, 0.71),
+      });
+      
+      // encrypt!
+      await pdfDoc.encrypt({
+        userPassword: 'abcd',
+        permissions: { modifying: true },
+      });
+      const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
+
+      download(pdfBytes, "pdfexample.pdf", "application/pdf");
+    }
+  </script>
+</html>
