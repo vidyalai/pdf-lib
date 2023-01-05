@@ -20,7 +20,7 @@
     "newLine": "LF",
 
     /* Strict Type-Checking Options */
-    "strict": false,
+    "strict": true,
 
     /* Additional Checks */
     "noUnusedLocals": true,

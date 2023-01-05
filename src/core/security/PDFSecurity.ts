@@ -1,5 +1,7 @@
 // @ts-ignore
-import { CryptoJS } from './cryptojs';
+import * as CryptoJS from './crypto-js';
+
+//import { CryptoJS } from 'crypto-js'
 
 //const CryptoJS: any = require('./cryptojs');
 //import saslprep from 'saslprep';
@@ -8,7 +10,7 @@ import PDFDict from '../objects/PDFDict';
 import { LiteralObject } from '../PDFContext';
 
 //import CryptoJS from './cryptojs';
-
+//type CryptoJS = cryptoJs.exports;
 type WordArray = CryptoJS.lib.WordArray;
 type generateRandomWordArrayFn = (bytes: number) => WordArray;
 
