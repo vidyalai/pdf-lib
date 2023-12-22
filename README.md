@@ -4,6 +4,11 @@ This version is forked from [Hopding/pdf-lib](https://github.com/Hopding/pdf-lib
 Incorporated several bug fixes and additional features into the original code.
 
  <details>
+  <summary><a href="https://github.com/cantoo-scribe/pdf-lib/pull/42">2023/12/22 - Incorporate @cantoo/pdf-lib Refactor drawSvg PR</a></summary>
+  
+PR: [Refactor drawSvg to handle transfomations as matrix and to crop elements #42](https://github.com/cantoo-scribe/pdf-lib/pull/42)
+</details>
+ <details>
   <summary><a href="https://github.com/cantoo-scribe/pdf-lib">2023/12/20 - Incorporate @cantoo/pdf-lib that is fork of pdf-lib to use drawSvg method</a></summary>
 
 To achieve [Add SVG Schema #29](https://github.com/pdfme/pdfme/issues/29) feature, pull the [@cantoo/pdf-lib](https://github.com/cantoo-scribe/pdf-lib) into this repo.
