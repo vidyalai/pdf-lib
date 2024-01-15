@@ -68,11 +68,13 @@ import PDFEmbeddedFile from './PDFEmbeddedFile';
 import PDFJavaScript from './PDFJavaScript';
 import JavaScriptEmbedder from '../core/embedders/JavaScriptEmbedder';
 import { CipherTransformFactory } from '../core/crypto';
-
+import PDFSecurity, { SecurityOption } from '../core/security/PDFSecurity';
 /**
  * Represents a PDF document.
  */
 export default class PDFDocument {
+  _id!: Uint8Array;
+  _security!: PDFSecurity | null;
   /**
    * Load an existing [[PDFDocument]]. The input data can be provided in
    * multiple formats:
@@ -151,7 +153,10 @@ export default class PDFDocument {
       throwOnInvalidObject,
       capNumbers,
     ).parseDocument();
-    if (!!context.lookup(context.trailerInfo.Encrypt) && password!==undefined) {
+    if (
+      !!context.lookup(context.trailerInfo.Encrypt) &&
+      password !== undefined
+    ) {
       // Decrypt
       const fileIds = context.lookup(context.trailerInfo.ID, PDFArray);
       const encryptDict = context.lookup(context.trailerInfo.Encrypt, PDFDict);
@@ -186,6 +191,34 @@ export default class PDFDocument {
     context.trailerInfo.Root = context.register(catalog);
 
     return new PDFDocument(context, false, updateMetadata);
+  }
+
+  /**
+   * Instantiate PDF-Security for encryption of file
+   * @param SecurityOption {@link SecurityOption}
+   *  SecurityOption
+   * ```javascript
+   * {
+   * `ownerPassword`?: string;
+   * `userPassword`: string;
+   * `permissions`?: UserPermission;
+   * `pdfVersion`?: string;
+   * }
+   * ```
+   *
+   * @returns void
+   */
+  async encrypt(options: SecurityOption) {
+    options.pdfVersion = this.context.header.getVersion();
+    this._id = PDFSecurity.generateFileID(this.getInfoDict());
+    const newInfo = this.context.obj([this._id, this._id]);
+    this.context.trailerInfo.ID = newInfo;
+
+    this._security = PDFSecurity.create(this, options);
+    this.context.setSecurity(this._security);
+
+    const newSecurity = this.context.obj(this._security.dictionary);
+    this.context.trailerInfo.Encrypt = this.context.register(newSecurity);
   }
 
   /** The low-level context of this document. */

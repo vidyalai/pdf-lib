@@ -2,6 +2,8 @@
 
 import { values as objectValues } from './objects';
 
+import PDFSecurity from '../core/security/PDFSecurity';
+
 export const backtick = (val: any) => `\`${val}\``;
 export const singleQuote = (val: any) => `'${val}'`;
 
@@ -224,5 +226,13 @@ export const assertPositive = (value: number, valueName: string) => {
   if (![1, 0].includes(Math.sign(value))) {
     // prettier-ignore
     throw new Error(`${backtick(valueName)} must be a positive number or 0, but was actually ${value}`);
+  }
+};
+
+export const assertSecurity = (value: any, valueName: string) => {
+  if (!(value instanceof PDFSecurity)) {
+    throw new Error(
+      `${backtick(valueName)} must be present and is instance of PDFSecurity`,
+    );
   }
 };
