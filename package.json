@@ -1,5 +1,5 @@
 {
-  "name": "@pdfme/pdf-lib",
+  "name": "@dev-vidyalai/pdf-lib",
   "version": "1.18.3",
   "description": "Create and modify PDF files with JavaScript",
   "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
@@ -134,9 +134,12 @@
   "license": "MIT",
   "private": false,
   "homepage": "https://pdf-lib.js.org",
-  "repository": "git+https://github.com/pdfme/pdf-lib.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidyalai/pdf-lib"
+  },
   "bugs": {
-    "url": "https://github.com/pdfme/pdf-lib/issues"
+    "url": "https://github.com/vidyalai/pdf-lib/issues"
   },
   "keywords": [
     "pdf-lib",
@@ -151,5 +154,9 @@
     "typescript",
     "javascript",
     "library"
-  ]
+  ],
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  }
 }

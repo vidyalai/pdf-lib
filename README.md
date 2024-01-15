@@ -1,4 +1,4 @@
-# @pdfme/pdf-lib
+# dev-vidyalai/pdf-lib
 
 This version is forked from [Hopding/pdf-lib](https://github.com/Hopding/pdf-lib).  
 Incorporated several bug fixes and additional features into the original code.

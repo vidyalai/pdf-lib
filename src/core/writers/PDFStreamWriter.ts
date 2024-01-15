@@ -1,4 +1,3 @@
-import PDFHeader from '../document/PDFHeader';
 import PDFTrailer from '../document/PDFTrailer';
 import PDFInvalidObject from '../objects/PDFInvalidObject';
 import PDFName from '../objects/PDFName';
