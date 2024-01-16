@@ -359,7 +359,6 @@ class PDFSecurity {
 
   getEncryptFn(obj: number, gen: number) {
     let digest: WordArray;
-    let key: WordArray;
     if (this.version < 5) {
       digest = this.encryptionKey
         .clone()
@@ -375,28 +374,27 @@ class PDFSecurity {
             5,
           ),
         );
+    }
 
-      if (this.version === 1 || this.version === 2) {
-        key = CryptoJS.MD5(digest);
-        key.sigBytes = Math.min(16, this.keyBits / 8 + 5);
-        return (buffer: Uint8Array) =>
-          wordArrayToBuffer(
-            CryptoJS.RC4.encrypt(
-              CryptoJS.lib.WordArray.create(buffer as unknown as number[]),
-              key,
-            ).ciphertext,
-          );
-      }
-
-      if (this.version === 4) {
-        key = CryptoJS.MD5(
-          digest.concat(CryptoJS.lib.WordArray.create([0x73416c54], 4)),
+    if (this.version === 1 || this.version === 2) {
+      let key = CryptoJS.MD5(digest);
+      key.sigBytes = Math.min(16, this.keyBits / 8 + 5);
+      return (buffer: Uint8Array) =>
+        wordArrayToBuffer(
+          CryptoJS.RC4.encrypt(
+            CryptoJS.lib.WordArray.create(buffer as unknown as number[]),
+            key,
+          ).ciphertext,
         );
-      }
-    } else if (this.version === 5) {
-      key = this.encryptionKey;
+    }
+
+    let key: WordArray;
+    if (this.version === 4) {
+      key = CryptoJS.MD5(
+        digest.concat(CryptoJS.lib.WordArray.create([0x73416c54], 4)),
+      );
     } else {
-      throw new Error('Unknown V value');
+      key = this.encryptionKey;
     }
 
     const iv = PDFSecurity.generateRandomWordArray(16);
@@ -458,10 +456,7 @@ const getPermissionsR2 = (permissionObject: UserPermission = {}) => {
  */
 const getPermissionsR3 = (permissionObject: UserPermission = {}) => {
   let permissions = 0xfffff0c0 >> 0;
-  if (
-    permissionObject.printing === 'lowResolution' ||
-    permissionObject.printing
-  ) {
+  if (permissionObject.printing === 'lowResolution') {
     permissions |= 0b000000000100;
   }
   if (permissionObject.printing === 'highResolution') {
@@ -646,7 +641,7 @@ const getEncryptedPermissionsR5 = (
 };
 
 const processPasswordR2R3R4 = (password = '') => {
-  const out = new Uint8Array(32);
+  const out = Buffer.alloc(32);
   const length = password.length;
   let index = 0;
   while (index < length && index < 32) {
@@ -667,7 +662,7 @@ const processPasswordR2R3R4 = (password = '') => {
 const processPasswordR5 = (password = '') => {
   password = unescape(encodeURIComponent(password.normalize('NFKC')));
   const length = Math.min(127, password.length);
-  const out = new Uint8Array(length);
+  const out = Buffer.alloc(length);
 
   for (let i = 0; i < length; i++) {
     out[i] = password.charCodeAt(i);
@@ -689,8 +684,7 @@ const wordArrayToBuffer = (wordArray: WordArray): Uint8Array => {
       (wordArray.words[Math.floor(i / 4)] >> (8 * (3 - (i % 4)))) & 0xff,
     );
   }
-
-  return Uint8Array.from(byteArray);
+  return Buffer.from(byteArray);
 };
 
 /* 
