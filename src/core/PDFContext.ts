@@ -17,15 +17,14 @@ import PDFString from './objects/PDFString';
 import PDFOperator from './operators/PDFOperator';
 import Ops from './operators/PDFOperatorNames';
 import PDFContentStream from './structures/PDFContentStream';
-import { typedArrayFor } from '../utils';
-import { SimpleRNG } from '../utils/rng';
+import { assertSecurity, typedArrayFor, Uint8ArrToHex } from '../utils';
+import PDFSecurity from './security/PDFSecurity';
 
 type LookupKey = PDFRef | PDFObject | undefined;
 
-interface LiteralObject {
-  [name: string]: Literal | PDFObject;
+export interface LiteralObject {
+  [name: string]: Literal | PDFObject | object;
 }
-
 interface LiteralArray {
   [index: number]: Literal | PDFObject;
 }
@@ -56,12 +55,12 @@ class PDFContext {
     Info?: PDFObject;
     ID?: PDFObject;
   };
-  rng: SimpleRNG;
 
   private readonly indirectObjects: Map<PDFRef, PDFObject>;
 
   private pushGraphicsStateContentStreamRef?: PDFRef;
   private popGraphicsStateContentStreamRef?: PDFRef;
+  private _security!: PDFSecurity | null;
 
   private constructor() {
     this.largestObjectNumber = 0;
@@ -69,7 +68,15 @@ class PDFContext {
     this.trailerInfo = {};
 
     this.indirectObjects = new Map();
-    this.rng = SimpleRNG.withSeed(1);
+  }
+
+  getSecurity(): PDFSecurity | null {
+    return this._security;
+  }
+
+  setSecurity(pdfSecurity: PDFSecurity): void {
+    assertSecurity(pdfSecurity, 'PDFSecurity Instance');
+    this._security = pdfSecurity;
   }
 
   assign(ref: PDFRef, object: PDFObject): void {
@@ -203,6 +210,9 @@ class PDFContext {
       return PDFNumber.of(literal);
     } else if (typeof literal === 'boolean') {
       return literal ? PDFBool.True : PDFBool.False;
+    } else if (literal instanceof Uint8Array) {
+      // Convert ID/U/O field of Security to Hex String
+      return PDFHexString.of(Uint8ArrToHex(literal));
     } else if (Array.isArray(literal)) {
       const array = PDFArray.withContext(this);
       for (let idx = 0, len = literal.length; idx < len; idx++) {
@@ -290,10 +300,6 @@ class PDFContext {
     const stream = PDFContentStream.of(dict, [op]);
     this.popGraphicsStateContentStreamRef = this.register(stream);
     return this.popGraphicsStateContentStreamRef;
-  }
-
-  addRandomSuffix(prefix: string, suffixLength = 4): string {
-    return `${prefix}-${Math.floor(this.rng.nextInt() * 10 ** suffixLength)}`;
   }
 }
 

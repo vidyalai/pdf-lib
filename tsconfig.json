@@ -2,8 +2,8 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "es2019",
-    "module": "commonjs",
-    "allowJs": false,
+    "module": "ES2015",
+    "allowJs": true,
     "checkJs": false,
     "declaration": true,
     "declarationMap": true,
@@ -29,14 +29,18 @@
     /* Module Resolution Options */
     "baseUrl": "./src",
     "paths": {
-      "src/*": ["./*"]
+      "src/*": [
+        "./*"
+      ]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "preserveSymlinks": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     ".circleci",
     ".github",

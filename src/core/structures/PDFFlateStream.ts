@@ -7,7 +7,7 @@ import PDFStream from '../objects/PDFStream';
 import { Cache } from '../../utils';
 
 class PDFFlateStream extends PDFStream {
-  protected readonly contentsCache: Cache<Uint8Array>;
+  protected contentsCache: Cache<Uint8Array>;
   protected readonly encode: boolean;
 
   constructor(dict: PDFDict, encode: boolean) {
@@ -17,6 +17,13 @@ class PDFFlateStream extends PDFStream {
 
     if (encode) dict.set(PDFName.of('Filter'), PDFName.of('FlateDecode'));
     this.contentsCache = Cache.populatedBy(this.computeContents);
+  }
+
+  updateContent(encrypt: Uint8Array): void {
+    this.contentsCache = Cache.populatedBy(() => encrypt);
+    //   this.contentsCache = Cache.populatedBy(() =>
+    //   this.encode ? pako.deflate(encrypt) : encrypt,
+    // );
   }
 
   computeContents = (): Uint8Array => {

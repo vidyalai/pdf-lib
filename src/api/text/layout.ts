@@ -34,44 +34,18 @@ const computeFontSize = (
   lines: string[],
   font: PDFFont,
   bounds: LayoutBounds,
-  multiline: boolean = false,
 ) => {
   let fontSize = MIN_FONT_SIZE;
 
   while (fontSize < MAX_FONT_SIZE) {
-    let linesUsed = 0;
-
-    for (
-      let lineIdx = 0, lineLen = lines.length;
-      lineIdx < lineLen;
-      lineIdx++
-    ) {
-      linesUsed += 1;
-
-      const line = lines[lineIdx];
-      const words = line.split(' ');
-
-      // Layout the words using the current `fontSize`, line wrapping
-      // whenever we reach the end of the current line.
-      let spaceInLineRemaining = bounds.width;
-      for (let idx = 0, len = words.length; idx < len; idx++) {
-        const isLastWord = idx === len - 1;
-        const word = isLastWord ? words[idx] : words[idx] + ' ';
-        const widthOfWord = font.widthOfTextAtSize(word, fontSize);
-        spaceInLineRemaining -= widthOfWord;
-        if (spaceInLineRemaining <= 0) {
-          linesUsed += 1;
-          spaceInLineRemaining = bounds.width - widthOfWord;
-        }
-      }
+    for (let idx = 0, len = lines.length; idx < len; idx++) {
+      const line = lines[idx];
+      const tooLong = font.widthOfTextAtSize(line, fontSize) > bounds.width;
+      if (tooLong) return fontSize - 1;
     }
-
-    // Return if we exceeded the allowed width
-    if (!multiline && linesUsed > lines.length) return fontSize - 1;
-
     const height = font.heightAtSize(fontSize);
     const lineHeight = height + height * 0.2;
-    const totalHeight = lineHeight * linesUsed;
+    const totalHeight = lines.length * lineHeight;
 
     // Return if we exceeded the allowed height
     if (totalHeight > Math.abs(bounds.height)) return fontSize - 1;
@@ -166,7 +140,7 @@ export const layoutMultilineText = (
   const lines = lineSplit(cleanText(text));
 
   if (fontSize === undefined || fontSize === 0) {
-    fontSize = computeFontSize(lines, font, bounds, true);
+    fontSize = 12;
   }
   const height = font.heightAtSize(fontSize);
   const lineHeight = height + height * 0.2;

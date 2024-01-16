@@ -13,17 +13,19 @@ class LZWStream extends DecodeStream {
   private stream: StreamType;
   private cachedData: number;
   private bitsCached: number;
-  private lzwState?: {
-    earlyChange: 0 | 1;
-    codeLength: number;
-    nextCode: number;
-    dictionaryValues: Uint8Array;
-    dictionaryLengths: Uint16Array;
-    dictionaryPrevCodes: Uint16Array;
-    currentSequence: Uint8Array;
-    currentSequenceLength: number;
-    prevCode?: number | null;
-  };
+  private lzwState:
+    | {
+        earlyChange: 0 | 1;
+        codeLength: number;
+        nextCode: number;
+        dictionaryValues: Uint8Array;
+        dictionaryLengths: Uint16Array;
+        dictionaryPrevCodes: Uint16Array;
+        currentSequence: Uint8Array;
+        currentSequenceLength: number;
+        prevCode?: number | null;
+      }
+    | undefined;
 
   constructor(
     stream: StreamType,
