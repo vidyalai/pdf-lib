@@ -13,7 +13,6 @@ import {
   pushGraphicsState,
   translate,
   LineCapStyle,
-  scale,
   FillRule,
 } from './operators';
 import PDFDocument from './PDFDocument';
@@ -42,10 +41,9 @@ import {
   PDFOperator,
   PDFPageLeaf,
   PDFRef,
-  PDFDict,
-  PDFArray,
 } from '../core';
 import {
+  addRandomSuffix,
   assertEachIs,
   assertIs,
   assertMultiple,
@@ -103,7 +101,7 @@ export default class PDFPage {
   /** The document to which this page belongs. */
   readonly doc: PDFDocument;
 
-  private fontKey?: PDFName;
+  private fontKey?: string;
   private font?: PDFFont;
   private fontSize = 24;
   private fontColor = rgb(0, 0, 0) as Color;
@@ -572,90 +570,6 @@ export default class PDFPage {
   }
 
   /**
-   * Scale the size, content, and annotations of a page.
-   *
-   * For example:
-   * ```js
-   * page.scale(0.5, 0.5);
-   * ```
-   *
-   * @param x The factor by which the width for the page should be scaled
-   *          (e.g. `0.5` is 50%).
-   * @param y The factor by which the height for the page should be scaled
-   *          (e.g. `2.0` is 200%).
-   */
-  scale(x: number, y: number): void {
-    assertIs(x, 'x', ['number']);
-    assertIs(y, 'y', ['number']);
-    this.setSize(this.getWidth() * x, this.getHeight() * y);
-    this.scaleContent(x, y);
-    this.scaleAnnotations(x, y);
-  }
-
-  /**
-   * Scale the content of a page. This is useful after resizing an existing
-   * page. This scales only the content, not the annotations.
-   *
-   * For example:
-   * ```js
-   * // Bisect the size of the page
-   * page.setSize(page.getWidth() / 2, page.getHeight() / 2);
-   *
-   * // Scale the content of the page down by 50% in x and y
-   * page.scaleContent(0.5, 0.5);
-   * ```
-   * See also: [[scaleAnnotations]]
-   * @param x The factor by which the x-axis for the content should be scaled
-   *          (e.g. `0.5` is 50%).
-   * @param y The factor by which the y-axis for the content should be scaled
-   *          (e.g. `2.0` is 200%).
-   */
-  scaleContent(x: number, y: number): void {
-    assertIs(x, 'x', ['number']);
-    assertIs(y, 'y', ['number']);
-
-    this.node.normalize();
-    this.getContentStream();
-
-    const start = this.createContentStream(pushGraphicsState(), scale(x, y));
-    const startRef = this.doc.context.register(start);
-
-    const end = this.createContentStream(popGraphicsState());
-    const endRef = this.doc.context.register(end);
-
-    this.node.wrapContentStreams(startRef, endRef);
-  }
-
-  /**
-   * Scale the annotations of a page. This is useful if you want to scale a
-   * page with comments or other annotations.
-   * ```js
-   * // Scale the content of the page down by 50% in x and y
-   * page.scaleContent(0.5, 0.5);
-   *
-   * // Scale the content of the page down by 50% in x and y
-   * page.scaleAnnotations(0.5, 0.5);
-   * ```
-   * See also: [[scaleContent]]
-   * @param x The factor by which the x-axis for the annotations should be
-   *          scaled (e.g. `0.5` is 50%).
-   * @param y The factor by which the y-axis for the annotations should be
-   *          scaled (e.g. `2.0` is 200%).
-   */
-  scaleAnnotations(x: number, y: number) {
-    assertIs(x, 'x', ['number']);
-    assertIs(y, 'y', ['number']);
-
-    const annots = this.node.Annots();
-    if (!annots) return;
-
-    for (let idx = 0; idx < annots.size(); idx++) {
-      const annot = annots.lookup(idx);
-      if (annot instanceof PDFDict) this.scaleAnnot(annot, x, y);
-    }
-  }
-
-  /**
    * Reset the x and y coordinates of this page to `(0, 0)`. This operation is
    * often useful after calling [[translateContent]]. For example:
    * ```js
@@ -702,7 +616,8 @@ export default class PDFPage {
     // TODO: Reuse image Font name if we've already added this image to Resources.Fonts
     assertIs(font, 'font', [[PDFFont, 'PDFFont']]);
     this.font = font;
-    this.fontKey = this.node.newFontDictionary(this.font.name, this.font.ref);
+    this.fontKey = addRandomSuffix(this.font.name);
+    this.node.setFontDictionary(PDFName.of(this.fontKey), this.font.ref);
   }
 
   /**
@@ -981,11 +896,14 @@ export default class PDFPage {
     assertOrUndefined(options.wordBreaks, 'options.wordBreaks', [Array]);
     assertIsOneOfOrUndefined(options.blendMode, 'options.blendMode', BlendMode);
 
-    const { oldFont, newFont, newFontKey } = this.setOrEmbedFont(options.font);
+    // const { oldFont, newFont, newFontKey } = this.setOrEmbedFont(options.font);
+    const [originalFont] = this.getFont();
+    if (options.font) this.setFont(options.font);
+    const [font, fontKey] = this.getFont();
     const fontSize = options.size || this.fontSize;
 
     const wordBreaks = options.wordBreaks || this.doc.defaultWordBreaks;
-    const textWidth = (t: string) => newFont.widthOfTextAtSize(t, fontSize);
+    const textWidth = (t: string) => font.widthOfTextAtSize(t, fontSize);
     const lines =
       options.maxWidth === undefined
         ? lineSplit(cleanText(text))
@@ -993,7 +911,7 @@ export default class PDFPage {
 
     const encodedLines = new Array(lines.length) as PDFHexString[];
     for (let idx = 0, len = lines.length; idx < len; idx++) {
-      encodedLines[idx] = newFont.encodeText(lines[idx]);
+      encodedLines[idx] = font.encodeText(lines[idx]);
     }
 
     const graphicsStateKey = this.maybeEmbedGraphicsState({
@@ -1005,7 +923,7 @@ export default class PDFPage {
     contentStream.push(
       ...drawLinesOfText(encodedLines, {
         color: options.color ?? this.fontColor,
-        font: newFontKey,
+        font: fontKey,
         size: fontSize,
         rotate: options.rotate ?? degrees(0),
         xSkew: options.xSkew ?? degrees(0),
@@ -1015,14 +933,11 @@ export default class PDFPage {
         lineHeight: options.lineHeight ?? this.lineHeight,
         graphicsState: graphicsStateKey,
         matrix: options.matrix,
-        clipSpaces: options.clipSpaces
+        clipSpaces: options.clipSpaces,
       }),
     );
 
-    if (options.font) {
-      if (oldFont) this.setFont(oldFont);
-      else this.resetFont();
-    }
+    if (options.font) this.setFont(originalFont);
   }
 
   /**
@@ -1063,7 +978,8 @@ export default class PDFPage {
     assertRangeOrUndefined(options.opacity, 'opacity.opacity', 0, 1);
     assertIsOneOfOrUndefined(options.blendMode, 'options.blendMode', BlendMode);
 
-    const xObjectKey = this.node.newXObject('Image', image.ref);
+    const xObjectKey = addRandomSuffix('Image', 10);
+    this.node.setXObject(PDFName.of(xObjectKey), image.ref);
 
     const graphicsStateKey = this.maybeEmbedGraphicsState({
       opacity: options.opacity,
@@ -1082,7 +998,7 @@ export default class PDFPage {
         ySkew: options.ySkew ?? degrees(0),
         graphicsState: graphicsStateKey,
         matrix: options.matrix,
-        clipSpaces: options.clipSpaces
+        clipSpaces: options.clipSpaces,
       }),
     );
   }
@@ -1139,10 +1055,8 @@ export default class PDFPage {
     assertRangeOrUndefined(options.opacity, 'opacity.opacity', 0, 1);
     assertIsOneOfOrUndefined(options.blendMode, 'options.blendMode', BlendMode);
 
-    const xObjectKey = this.node.newXObject(
-      'EmbeddedPdfPage',
-      embeddedPage.ref,
-    );
+    const xObjectKey = addRandomSuffix('EmbeddedPdfPage', 10);
+    this.node.setXObject(PDFName.of(xObjectKey), embeddedPage.ref);
 
     const graphicsStateKey = this.maybeEmbedGraphicsState({
       opacity: options.opacity,
@@ -1273,7 +1187,7 @@ export default class PDFPage {
         graphicsState: graphicsStateKey,
         fillRule: options.fillRule,
         matrix: options.matrix,
-        clipSpaces: options.clipSpaces
+        clipSpaces: options.clipSpaces,
       }),
     );
   }
@@ -1553,19 +1467,6 @@ export default class PDFPage {
     this.drawEllipse({ ...options, xScale: size, yScale: size });
   }
 
-  private setOrEmbedFont(font?: PDFFont) {
-    const oldFont = this.font;
-    const oldFontKey = this.fontKey;
-
-    if (font) this.setFont(font);
-    else this.getFont();
-
-    const newFont = this.font!;
-    const newFontKey = this.fontKey!;
-
-    return { oldFont, oldFontKey, newFont, newFontKey };
-  }
-
   /**
    * Draw an SVG on this page. For example:
    * ```js
@@ -1596,17 +1497,12 @@ export default class PDFPage {
     });
   }
 
-  getFont(): [PDFFont, PDFName] {
+  getFont(): [PDFFont, string] {
     if (!this.font || !this.fontKey) {
       const font = this.doc.embedStandardFont(StandardFonts.Helvetica);
       this.setFont(font);
     }
     return [this.font!, this.fontKey!];
-  }
-
-  private resetFont(): void {
-    this.font = undefined;
-    this.fontKey = undefined;
   }
 
   private getContentStream(useExisting = true): PDFContentStream {
@@ -1627,7 +1523,7 @@ export default class PDFPage {
     opacity?: number;
     borderOpacity?: number;
     blendMode?: BlendMode;
-  }): PDFName | undefined {
+  }): string | undefined {
     const { opacity, borderOpacity, blendMode } = options;
 
     if (
@@ -1638,6 +1534,8 @@ export default class PDFPage {
       return undefined;
     }
 
+    const key = addRandomSuffix('GS', 10);
+
     const graphicsState = this.doc.context.obj({
       Type: 'ExtGState',
       ca: opacity,
@@ -1645,24 +1543,8 @@ export default class PDFPage {
       BM: blendMode,
     });
 
-    const key = this.node.newExtGState('GS', graphicsState);
+    this.node.setExtGState(PDFName.of(key), graphicsState);
 
     return key;
-  }
-
-  private scaleAnnot(annot: PDFDict, x: number, y: number) {
-    const selectors = ['RD', 'CL', 'Vertices', 'QuadPoints', 'L', 'Rect'];
-    for (let idx = 0, len = selectors.length; idx < len; idx++) {
-      const list = annot.lookup(PDFName.of(selectors[idx]));
-      if (list instanceof PDFArray) list.scalePDFNumbers(x, y);
-    }
-
-    const inkLists = annot.lookup(PDFName.of('InkList'));
-    if (inkLists instanceof PDFArray) {
-      for (let idx = 0, len = inkLists.size(); idx < len; idx++) {
-        const arr = inkLists.lookup(idx);
-        if (arr instanceof PDFArray) arr.scalePDFNumbers(x, y);
-      }
-    }
   }
 }

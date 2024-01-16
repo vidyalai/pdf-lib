@@ -41,7 +41,12 @@ import {
   PDFName,
   PDFWidgetAnnotation,
 } from '../../core';
-import { assertIs, Cache, assertOrUndefined } from '../../utils';
+import {
+  addRandomSuffix,
+  assertIs,
+  Cache,
+  assertOrUndefined,
+} from '../../utils';
 
 export interface FlattenOptions {
   updateFieldAppearances: boolean;
@@ -551,7 +556,8 @@ export default class PDFForm {
           const page = this.findWidgetPage(widget);
           const widgetRef = this.findWidgetAppearanceRef(field, widget);
 
-          const xObjectKey = page.node.newXObject('FlatWidget', widgetRef);
+          const xObjectKey = addRandomSuffix('FlatWidget', 10);
+          page.node.setXObject(PDFName.of(xObjectKey), widgetRef);
 
           const rectangle = widget.getRectangle();
           const operators = [
@@ -563,8 +569,8 @@ export default class PDFForm {
           ].filter(Boolean) as PDFOperator[];
 
           page.pushOperators(...operators);
-        } catch(err) {
-          console.error(err)
+        } catch (err) {
+          console.error(err);
         }
       }
 
@@ -595,21 +601,13 @@ export default class PDFForm {
         pages.add(page);
 
         page.node.removeAnnot(widgetRef);
-      } catch(err) {
-        console.error(err)
+      } catch (err) {
+        console.error(err);
       }
     }
 
     pages.forEach((page) => page.node.removeAnnot(field.ref));
     this.acroForm.removeField(field.acroField);
-    const fieldKids = field.acroField.normalizedEntries().Kids;
-    const kidsCount = fieldKids.size();
-    for (let childIndex = 0; childIndex < kidsCount; childIndex++) {
-      const child = fieldKids.get(childIndex);
-      if (child instanceof PDFRef) {
-        this.doc.context.delete(child);
-      }
-    }
     this.doc.context.delete(field.ref);
   }
 

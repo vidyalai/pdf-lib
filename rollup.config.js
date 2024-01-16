@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
@@ -53,5 +54,16 @@ export default {
     format: MODULE_TYPE,
     sourcemap: true,
   },
-  plugins: [resolve(), commonjs(), json(), MINIFY === 'true' && terser()],
+  moduleContext: {
+    'src/core/security/crypto-js.js': 'window',
+    'src/core/security/cryptojs.ts': 'window',
+    'node_modules/crypto-js/index.js': 'window',
+  },
+  plugins: [
+    resolve(),
+    nodePolyfills(),
+    commonjs(),
+    json(),
+    MINIFY === 'true' && terser(),
+  ],
 };

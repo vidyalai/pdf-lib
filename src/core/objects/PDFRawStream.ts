@@ -11,7 +11,7 @@ class PDFRawStream extends PDFStream {
     transform?: CipherTransform,
   ) => new PDFRawStream(dict, contents, transform);
 
-  readonly contents: Uint8Array;
+  contents: Uint8Array;
   readonly transform?: CipherTransform;
 
   private constructor(
@@ -34,6 +34,10 @@ class PDFRawStream extends PDFStream {
 
   getContentsString(): string {
     return arrayAsString(this.contents);
+  }
+
+  updateContent(encrypt: Uint8Array): void {
+    this.contents = encrypt;
   }
 
   getContents(): Uint8Array {
